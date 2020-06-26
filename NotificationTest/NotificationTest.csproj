@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="6.1.0" />
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="6.1.0" />
     <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />
+    <PackageReference Include="WinCopies.WindowsAPICodePack" Version="1.2.1" />
   </ItemGroup>
 
 </Project>

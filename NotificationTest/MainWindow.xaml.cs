@@ -20,74 +20,89 @@ namespace NotificationTest
 
         private void InstantNotification(object sender, RoutedEventArgs e)
         {
-            // Construct the visuals of the toast (using Notifications library)
-            ToastContent toastContent = new ToastContent()
+            try
             {
-
-
-                // Arguments when the user taps body of toast
-                Launch = "action=viewConversation&conversationId=5",
-
-                Visual = new ToastVisual()
+                // Construct the visuals of the toast (using Notifications library)
+                ToastContent toastContent = new ToastContent()
                 {
-                    BindingGeneric = new ToastBindingGeneric()
+
+
+                    // Arguments when the user taps body of toast
+                    Launch = "action=viewConversation&conversationId=5",
+
+                    Visual = new ToastVisual()
                     {
-                        Children =
+                        BindingGeneric = new ToastBindingGeneric()
                         {
-                            new AdaptiveText()
+                            Children =
                             {
-                                Text = "Hello world!"
+                                new AdaptiveText()
+                                {
+                                    Text = "Hello world!"
+                                }
                             }
                         }
                     }
-                }
-            };
+                };
 
-            // Create the XML document (BE SURE TO REFERENCE WINDOWS.DATA.XML.DOM)
-            var doc = new XmlDocument();
-            doc.LoadXml(toastContent.GetContent());
+                // Create the XML document (BE SURE TO REFERENCE WINDOWS.DATA.XML.DOM)
+                var doc = new XmlDocument();
+                doc.LoadXml(toastContent.GetContent());
 
-            // And create the toast notification
-            var toast = new ToastNotification(doc);
+                // And create the toast notification
+                var toast = new ToastNotification(doc);
 
-            // And then show it
-            DesktopNotificationManagerCompat.CreateToastNotifier().Show(toast);
+                // And then show it
+                DesktopNotificationManagerCompat.CreateToastNotifier().Show(toast);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"Notification is not supported. Exception type - {exception.GetType()}");
+            }
+
         }
 
         private void DeferredNotification(object sender, RoutedEventArgs e)
         {
-            // Construct the visuals of the toast (using Notifications library)
-            ToastContent toastContent = new ToastContent()
+            try
             {
+                // Construct the visuals of the toast (using Notifications library)
+                ToastContent toastContent = new ToastContent()
+                {
                 
 
-                // Arguments when the user taps body of toast
-                Launch = "action=viewConversation&conversationId=5",
+                    // Arguments when the user taps body of toast
+                    Launch = "action=viewConversation&conversationId=5",
 
-                Visual = new ToastVisual()
-                {
-                    BindingGeneric = new ToastBindingGeneric()
+                    Visual = new ToastVisual()
                     {
-                        Children =
+                        BindingGeneric = new ToastBindingGeneric()
                         {
-                            new AdaptiveText()
+                            Children =
                             {
-                                Text = "Hello world!"
+                                new AdaptiveText()
+                                {
+                                    Text = "Hello world!"
+                                }
                             }
                         }
                     }
-                }
-            };
+                };
 
-            // Create the XML document (BE SURE TO REFERENCE WINDOWS.DATA.XML.DOM)
-            var doc = new XmlDocument();
-            doc.LoadXml(toastContent.GetContent());
+                // Create the XML document (BE SURE TO REFERENCE WINDOWS.DATA.XML.DOM)
+                var doc = new XmlDocument();
+                doc.LoadXml(toastContent.GetContent());
 
-            // And create the toast notification
-            var toast = new ScheduledToastNotification(toastContent.GetXml(), DateTime.Now.AddSeconds(10));
+                // And create the toast notification
+                var toast = new ScheduledToastNotification(toastContent.GetXml(), DateTime.Now.AddSeconds(10));
 
-            // And then show it
-            DesktopNotificationManagerCompat.CreateToastNotifier().AddToSchedule(toast);
+                // And then show it
+                DesktopNotificationManagerCompat.CreateToastNotifier().AddToSchedule(toast);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"Notification is not supported. Exception type - {exception.GetType()}");
+            }
         }
     }
 }
