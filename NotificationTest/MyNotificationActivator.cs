@@ -4,10 +4,11 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
 using DesktopNotifications;
+using NotificationTest;
 
 [ClassInterface(ClassInterfaceType.None)]
 [ComSourceInterfaces(typeof(NotificationActivator.INotificationActivationCallback))]
-[Guid("b36a1f69-9a84-4a35-a3ee-bfd796c14256"), ComVisible(true)]
+[Guid(Storage.ToastActivatorId), ComVisible(true)]
 public class MyNotificationActivator : NotificationActivator
 {
     public override void OnActivated(string invokedArgs, NotificationUserInput userInput, string appUserModelId)

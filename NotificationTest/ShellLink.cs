@@ -671,7 +671,7 @@ namespace ShellLinkPlus
             }
         }
 
-        public Guid CLSID
+        public Guid ToastActivatorId
         {
             get
             {

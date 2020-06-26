@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -23,34 +24,43 @@ namespace NotificationTest
 
             string shortcutPath = Path.Combine(
                 //Environment.GetFolderPath(Environment.SpecialFolder.Programs),
-                Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu),
                 "NotificationTest.lnk");
 
+            var execPath = Process.GetCurrentProcess().MainModule?.FileName;
+
+            if (!File.Exists(shortcutPath))
+            {
+                CreateShortcut(shortcutPath,
+                    execPath,
+                                Storage.AppUserModelId,
+                                Storage.ToastActivatorId);
+            }
+
             // Register AUMID and COM server (for MSIX/sparse package apps, this no-ops)
-            DesktopNotificationManagerCompat.RegisterAumidAndComServer<MyNotificationActivator>("Notification.Test123");
+            DesktopNotificationManagerCompat.RegisterAumidAndComServer<MyNotificationActivator>(Storage.AppUserModelId);
             // Register COM server and activator type
             DesktopNotificationManagerCompat.RegisterActivator<MyNotificationActivator>();
-
-            CreateShortcut(shortcutPath);
 
             base.OnStartup(e);
             var window = new MainWindow();
             window.Show();
         }
 
-        private void CreateShortcut(string shortcutPath)
+        private void CreateShortcut(string shortcutPath,
+                                    string executablePath,
+                                    string appUserModelId,
+                                    string toastActivatorId)
         {
 
             try
             {
                 using (ShellLink shortcut = new ShellLink())
                 {
-                    shortcut.TargetPath = "C:\\Program Files (x86)\\NotificationsTest123\\NotificationTest.exe";
-                    shortcut.Arguments = "";
-                    shortcut.AppUserModelID = "Notification.Test123";
-                    shortcut.CLSID = new Guid("b36a1f69-9a84-4a35-a3ee-bfd796c14256");
-                    shortcut.Save("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\NotificationsTest123\\Notification Test.lnk");
-                    //shortcut.Save(shortcutPath);
+                    shortcut.TargetPath = executablePath;
+                    shortcut.AppUserModelID = appUserModelId;
+                    shortcut.ToastActivatorId = new Guid(toastActivatorId);
+                    shortcut.Save(shortcutPath);
                 }
             }
             catch (Exception ex)
