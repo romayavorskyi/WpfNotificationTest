@@ -3,8 +3,6 @@ using System.Windows;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 using Microsoft.Toolkit.Uwp.Notifications;
-using DesktopNotifications;
-using DesktopNotificationManagerCompat = DesktopNotifications.DesktopNotificationManagerCompat;
 
 namespace NotificationTest
 {

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using DesktopNotifications;
+using Microsoft.Toolkit.Uwp.Notifications;
 using ShellLinkPlus;
 
 namespace NotificationTest
@@ -23,8 +23,7 @@ namespace NotificationTest
         {
 
             string shortcutPath = Path.Combine(
-                //Environment.GetFolderPath(Environment.SpecialFolder.Programs),
-                Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu),
+                Environment.GetFolderPath(Environment.SpecialFolder.Programs),
                 "NotificationTest.lnk");
 
             var execPath = Process.GetCurrentProcess().MainModule?.FileName;

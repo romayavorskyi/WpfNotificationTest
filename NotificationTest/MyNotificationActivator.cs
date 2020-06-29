@@ -3,7 +3,7 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
-using DesktopNotifications;
+using Microsoft.Toolkit.Uwp.Notifications;
 using NotificationTest;
 
 [ClassInterface(ClassInterfaceType.None)]
